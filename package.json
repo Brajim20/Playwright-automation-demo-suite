@@ -1,0 +1,23 @@
+{
+  "name": "playwright-automation-demo-suite",
+  "version": "1.0.0",
+  "description": "Public Playwright automation project showcasing UI tests, best practices, and reusable test utilities.",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Brajim20/Playwright-automation-demo-suite.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Brajim20/Playwright-automation-demo-suite/issues"
+  },
+  "homepage": "https://github.com/Brajim20/Playwright-automation-demo-suite#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.57.0",
+    "@types/node": "^24.10.2"
+  }
+}
