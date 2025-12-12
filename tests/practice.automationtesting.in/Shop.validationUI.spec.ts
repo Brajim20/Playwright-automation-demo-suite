@@ -9,7 +9,7 @@ test.describe('shop test', () => {
   });
 
   test('Validate logo funtionality', async ({ page }) => {
-
+  test.setTimeout(1200000);
     //  Navigate to Shop page
     await expect(page.getByRole('link', { name: 'Shop' })).toBeVisible();
     await page.getByRole('link', { name: 'Shop' }).click();

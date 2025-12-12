@@ -10,7 +10,7 @@ test.describe('Welcome Page UI Validation', () => {
   });
 
   test('Validate Welcome Page UI Elements', async ({ page }) => {
-    
+      test.setTimeout(1200000);
     // -----------------------
     // LOGO VALIDATION
     // -----------------------

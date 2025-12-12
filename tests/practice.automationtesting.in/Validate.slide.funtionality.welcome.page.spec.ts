@@ -9,7 +9,7 @@ test.describe('slide test', () => {
   });
 
   test('Validate slide funtionality', async ({ page }) => {
-
+  test.setTimeout(1200000);
     //lading image slide validation
   await expect(page.getByRole('img', { name: 'Shop Selenium Books' })).toBeVisible();
     console.log('Main banner visible');

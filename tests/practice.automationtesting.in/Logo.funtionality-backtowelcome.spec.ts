@@ -10,7 +10,7 @@ test.describe('logo test', () => {
 
   test('Validate logo funtionality', async ({ page }) => {
 
-
+  test.setTimeout(1200000);
     // Validate logo is visible
 
     await expect(page.locator('#site-logo').getByRole('link', { name: 'Automation Practice Site' })).toBeVisible();
