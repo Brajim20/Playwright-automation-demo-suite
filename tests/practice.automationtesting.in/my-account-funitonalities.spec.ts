@@ -8,7 +8,7 @@ test.describe('my account test', () => {
     console.log('shop ui validation Page loaded successfully');
   });
 
-  test('Validate login funtionality', async ({ page }) => {
+  test('Validate my account links funtionality', async ({ page }) => {
   test.setTimeout(1200000);
     // myaccount locator and locate the login page
     await page.getByRole('link', { name: 'My Account' }).click();
