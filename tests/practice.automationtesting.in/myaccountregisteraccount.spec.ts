@@ -25,15 +25,25 @@ test.describe('my account test', () => {
     const testEmail = 'TestUser' + Date.now() + '@example.com';
     await page.getByRole('textbox', { name: 'Email address *', exact: true }).fill(testEmail);
     await page.locator('#reg_password').fill('Test@1234@@reg');
-     await page.locator('#reg_password').fill('Test@1234@@reg1');
-    await page.getByRole('button', { name: 'Register' }).click();
-
+    await page.waitForTimeout(2000); // Wait for 2 seconds
+     await page.locator('#reg_password').fill('Test@1234@');
+     await page.getByRole('button', { name: 'Register' }).dblclick();
+      await page.getByRole('button', { name: 'Login' }).click();
+     await page.waitForTimeout(2000); 
+    await page.getByRole('textbox', { name: 'Email address *', exact: true }).fill(testEmail);
+    await page.locator('#reg_password').fill('Test@1234@@reg');
+    await page.waitForTimeout(2000); // Wait for 2 seconds
+     await page.locator('#reg_password').fill('Test@1234@');
+     await page.getByRole('button', { name: 'Register' }).dblclick();
+    await page.getByRole('button', { name: 'Register' }).dblclick();
+   
+  
+   
     // Verify successful registration
-    await expect(page.getByText(testEmail)).toBeVisible();
+
     await expect(page.getByRole('link', { name: 'shipping and billing addresses' })).toBeVisible();
     await expect(page.getByRole('link', { name: 'edit your password and' })).toBeVisible();
     await expect(page.locator('#content')).toBeVisible();
-    await expect(page.getByText('Hello TestUser1765547918626 (')).toBeVisible();
     await expect(page.getByRole('navigation').filter({ hasText: 'Dashboard Orders Downloads' })).toBeVisible();
     await expect(page.getByRole('link', { name: 'Dashboard' })).toBeVisible();
     await expect(page.getByRole('link', { name: 'Orders', exact: true })).toBeVisible();

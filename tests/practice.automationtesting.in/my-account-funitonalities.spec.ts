@@ -46,15 +46,59 @@ await expect(page.locator('#page-36')).toContainText('From your account dashboar
 await expect(page.getByRole('link', { name: 'Logout' })).toBeVisible();
 console.log('User logged in successfully');
 
-// 
+// validate funtionalities of my acocunt  
+
+// click on orders link
+await page.getByRole('link', { name: 'recent orders' }).click();
+await expect(page.getByText('Go Shop No order has been')).toBeVisible();
+await expect(page.getByRole('link', { name: 'Go Shop' })).toBeVisible();
+
+// back to dashboard
+await page.getByRole('listitem').filter({ hasText: 'Dashboard' }).click();
+
+// click on downloads link
+await page.getByRole('link', { name: 'Downloads' }).click();
+await expect(page.getByText('Go Shop No downloads')).toBeVisible();
+await expect(page.getByRole('link', { name: 'Go Shop' })).toBeVisible();
+
+// back to dashboard
+await page.getByRole('listitem').filter({ hasText: 'Dashboard' }).click();
+
+//  addresses link
+await page.getByRole('link', { name: 'Addresses' }).click();
+await expect(page.getByText('The following addresses will')).toBeVisible();
+await expect(page.getByRole('heading', { name: 'Billing Address' })).toBeVisible();
+await expect(page.getByText('You have not set up this type').first()).toBeVisible();
+await expect(page.getByRole('heading', { name: 'Shipping Address' })).toBeVisible();
+await expect(page.getByText('You have not set up this type').nth(1)).toBeVisible();
 
 
-// Logout
+// back to dashboard
+await page.getByRole('listitem').filter({ hasText: 'Dashboard' }).click();
+
+// click on account details link
+await page.getByRole('link', { name: 'Account Details' }).click();
+await expect(page.getByText('First name *')).toBeVisible();
+await expect(page.getByRole('textbox', { name: 'First name *' })).toBeVisible();
+await expect(page.getByText('Email address *')).toBeVisible();
+await expect(page.getByRole('textbox', { name: 'Email address *' })).toBeVisible();
+await expect(page.getByRole('textbox', { name: 'Last name *' })).toBeVisible();
+await expect(page.getByText('Last name *')).toBeVisible();
+await expect(page.getByText('Password Change')).toBeVisible();
+await expect(page.getByText('Current Password (leave blank')).toBeVisible();
+await expect(page.getByRole('textbox', { name: 'Current Password (leave blank' })).toBeVisible();
+await expect(page.getByRole('textbox', { name: 'New Password (leave blank to' })).toBeVisible();
+await expect(page.getByText('New Password (leave blank to')).toBeVisible();
+await expect(page.getByText('Confirm New Password')).toBeVisible();
+await expect(page.getByRole('textbox', { name: 'Confirm New Password' })).toBeVisible();
+await expect(page.getByRole('button', { name: 'Save changes' })).toBeVisible();
+
+//logout
 await page.getByRole('link', { name: 'Logout' }).click();
+
+//confirm logout
 await expect(page.getByRole('button', { name: 'Login' })).toBeVisible();
 console.log('User logged out successfully');
-
-
 
   });
     });
