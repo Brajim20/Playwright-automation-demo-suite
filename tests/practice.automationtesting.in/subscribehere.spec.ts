@@ -1,5 +1,5 @@
 import { test, expect, Locator } from '@playwright/test';
-test.describe('my account test', () => {
+test.describe('subscribe here  test', () => {
   
   // Runs before each test
   test.beforeEach(async ({ page }) => {
@@ -8,7 +8,7 @@ test.describe('my account test', () => {
     console.log('shop ui validation Page loaded successfully');
   });
 
-  test('Validate forgot password funtionality', async ({ page }) => {
+  test('Validate subscribe here funtionality', async ({ page }) => {
   test.setTimeout(1200000);
 
   const randomNumber = Math.floor(Math.random() * 1000000000);
