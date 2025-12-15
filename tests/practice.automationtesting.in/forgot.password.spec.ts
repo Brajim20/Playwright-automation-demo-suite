@@ -40,6 +40,7 @@ await page.getByRole('button', { name: 'Reset Password' }).click();
 
 // validate reset password message
 await expect(page.getByText('Password reset email has been sent.')).toBeVisible();
+await expect(page.locator('#page-36')).toContainText('Password reset email has been sent.');
 console.log('Forgot password functionality working fine');
 
 // validate the the  bottom message 
