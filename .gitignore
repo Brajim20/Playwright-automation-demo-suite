@@ -144,3 +144,9 @@ vite.config.ts.timestamp-*
 /blob-report/
 /playwright/.cache/
 /playwright/.auth/
+
+# Playwright auth state written by the setup project -- never commit a session
+.auth/
+
+# Merged blob reports
+/blob-report/

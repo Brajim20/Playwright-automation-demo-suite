@@ -1,24 +1,63 @@
 {
   "name": "playwright-automation-demo-suite",
   "version": "1.0.0",
-  "description": "Public Playwright automation project showcasing UI tests, best practices, and reusable test utilities.",
-  "main": "index.js",
-  "scripts": {},
+  "description": "Playwright E2E suite demonstrating the Page Object Model, custom fixtures, behavioural assertions, API testing, network mocking and accessibility scanning.",
+  "private": true,
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "playwright test",
+    "test:smoke": "playwright test --grep @smoke",
+    "test:regression": "playwright test --grep @regression",
+    "test:ui": "playwright test --project=chromium --ui",
+    "test:headed": "playwright test --project=chromium --headed",
+    "test:debug": "playwright test --project=chromium --debug",
+    "test:api": "playwright test --project=api",
+    "test:a11y": "playwright test --project=a11y",
+    "test:stable": "playwright test --project=stable-chromium",
+    "test:all-browsers": "playwright test --project=chromium --project=firefox --project=webkit --project=mobile-chrome --project=mobile-safari",
+    "test:update-snapshots": "playwright test --project=stable-chromium --update-snapshots",
+    "report": "playwright show-report",
+    "codegen": "playwright codegen https://practice.automationtesting.in/",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "verify": "npm run typecheck && npm run lint && npm run format:check",
+    "install:browsers": "playwright install --with-deps"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Brajim20/Playwright-automation-demo-suite.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
+  "keywords": [
+    "playwright",
+    "typescript",
+    "test-automation",
+    "e2e-testing",
+    "page-object-model",
+    "accessibility-testing",
+    "api-testing",
+    "qa"
+  ],
+  "author": "Brayan Jimenez",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/Brajim20/Playwright-automation-demo-suite/issues"
   },
   "homepage": "https://github.com/Brajim20/Playwright-automation-demo-suite#readme",
   "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "@eslint/js": "^9.39.5",
     "@playwright/test": "^1.57.0",
-    "@types/node": "^24.10.2"
+    "@types/node": "^24.10.2",
+    "eslint": "^9.39.5",
+    "eslint-plugin-playwright": "^2.12.0",
+    "prettier": "^3.9.8",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.70.0"
   },
   "dependencies": {
     "dotenv": "^17.2.3"
