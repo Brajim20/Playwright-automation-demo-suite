@@ -7,9 +7,9 @@
     "node": ">=20"
   },
   "scripts": {
-    "test": "playwright test",
-    "test:smoke": "playwright test --grep @smoke",
-    "test:regression": "playwright test --grep @regression",
+    "test": "playwright test --project=stable-chromium --project=api --project=a11y --project=chromium",
+    "test:smoke": "npm test -- --grep @smoke",
+    "test:regression": "npm test -- --grep @regression",
     "test:ui": "playwright test --project=chromium --ui",
     "test:headed": "playwright test --project=chromium --headed",
     "test:debug": "playwright test --project=chromium --debug",
@@ -26,7 +26,8 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "verify": "npm run typecheck && npm run lint && npm run format:check",
-    "install:browsers": "playwright install --with-deps"
+    "install:browsers": "playwright install --with-deps",
+    "test:full": "playwright test"
   },
   "repository": {
     "type": "git",

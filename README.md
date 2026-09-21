@@ -20,6 +20,7 @@ cd Playwright-automation-demo-suite
 npm ci
 npm run install:browsers
 
+npm test                # default suite           (67 tests)
 npm run test:stable     # deterministic UI suite  (14 tests, ~8s)
 npm run test:api        # API contract tests       (7 tests, ~5s)
 npm run test:a11y       # accessibility scans      (6 tests, ~7s)
@@ -189,6 +190,16 @@ gets deleted when upstream fixes it instead of quietly outliving the bug. Full w
 | `npm run verify`                     | Typecheck + lint + format check               |
 
 Filter by tag directly: `npx playwright test --grep @smoke`
+
+### Why `npm test` is not every project
+
+Five browser projects × 39 practice-site tests is 195 live requests to a free third-party
+server, on every local run. The default runs the practice suite on Chromium only; the full
+matrix is `npm run test:all-browsers`, and it runs nightly in CI where it belongs.
+
+When the practice site is down you will see those tests reported as **skipped**, with the
+HTTP status in the reason. That is the availability guard working — skipped, failed and
+untested are three different states.
 
 ---
 

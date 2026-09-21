@@ -54,6 +54,15 @@ export default defineConfig({
     video: 'retain-on-failure',
   },
 
+  /**
+   * Every project is defined here and any of them can be run with `--project=<name>`.
+   *
+   * `npm test` deliberately does NOT run them all. It runs the three deterministic projects
+   * plus the practice site on Chromium only. Running the practice suite across five browsers
+   * means 195 live requests to a free third-party server on every local run -- slow, and not
+   * a reasonable thing to do to someone else's box. The full matrix is one command away
+   * (`npm run test:all-browsers`) and runs nightly in CI, which is where it belongs.
+   */
   projects: [
     /* ---------------------------------------------------------------- setup */
     {
