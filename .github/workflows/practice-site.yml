@@ -1,0 +1,74 @@
+name: Practice site (non-blocking)
+
+# The practice site is third-party and does go down -- it was serving HTTP 500 for the whole
+# of the day this workflow was written. These runs are informational: scheduled, manually
+# triggerable, and deliberately not required for a merge. The suite's merge gate lives in
+# ci.yml and only uses targets this repo controls.
+on:
+  schedule:
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+    inputs:
+      project:
+        description: Playwright project to run
+        required: false
+        default: chromium
+        type: choice
+        options: [chromium, firefox, webkit, mobile-chrome, mobile-safari]
+
+permissions:
+  contents: read
+
+jobs:
+  reachable:
+    name: Is the target up?
+    runs-on: ubuntu-latest
+    outputs:
+      status: ${{ steps.probe.outputs.status }}
+    steps:
+      - id: probe
+        run: |
+          code=$(curl -s -o /dev/null -w '%{http_code}' https://practice.automationtesting.in/ || echo 000)
+          echo "status=$code" >> "$GITHUB_OUTPUT"
+          echo "practice.automationtesting.in returned HTTP $code" >> "$GITHUB_STEP_SUMMARY"
+
+  test:
+    name: ${{ matrix.project }}
+    needs: reachable
+    if: needs.reachable.outputs.status == '200'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        project: ${{ github.event_name == 'schedule' && fromJSON('["chromium","firefox","webkit","mobile-chrome","mobile-safari"]') || fromJSON(format('["{0}"]', inputs.project)) }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps
+
+      - name: Run ${{ matrix.project }}
+        run: npx playwright test --project=${{ matrix.project }}
+
+      - name: Upload report
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: practice-report-${{ matrix.project }}
+          path: playwright-report/
+          retention-days: 14
+
+  skipped:
+    name: Target unavailable
+    needs: reachable
+    if: needs.reachable.outputs.status != '200'
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "### Skipped" >> "$GITHUB_STEP_SUMMARY"
+          echo "practice.automationtesting.in returned HTTP ${{ needs.reachable.outputs.status }}." >> "$GITHUB_STEP_SUMMARY"
+          echo "Skipped, not failed -- the target is unavailable, which is not a regression in this repo." >> "$GITHUB_STEP_SUMMARY"
